@@ -171,7 +171,7 @@ frere_de(X,Y) :-
   	(couple(Z,V);
    	couple(V,Z)),
   	sexe(X,m),
-	X/=Y.
+	X/==Y.
 soeur_de(X,Y) :-
 	parent_de(Z,X),
 	parent_de(V,Y),
@@ -271,10 +271,17 @@ e3 :-
       true.
 
 %% Programmer un algo e4 qui ecrit le 2eme, 4eme et 7eme elements de la liste
-%% dans le fait   blist(List).
+%% dans le fait blist(List).
 
 blist([1,2,3,4,5,6,7,8]).
 
+e4 :- 
+    blist([_,X,_,Y,_,_,Z,_]),
+    write(X),
+    nl,
+    write(Y),
+    nl,
+    write(Z).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% V. Programmes recursifs.
@@ -293,6 +300,6 @@ e5(X) :- memb(2,[1,2|X]).
 e6(X) :-
   memb(X,[1,2,3]), % POINT DE CHOIX
   write(X),
-  fail;            % un echec et le bactracking au point
+  fail;           % un echec et le bactracking au point
                    % de choix le plus proche
   true.
