@@ -44,7 +44,14 @@ l0([_|R],I,I2,E1) :-
 %% 5. PROGRAMMEZ l'enumeration des positions d'une liste ou on
 %% trouve Y = X pour un X donne.
 %% occ(+Liste,+X,-I).
-
+occ(L,E,I) :-
+    l1(L,E,0,I).
+l1([E|R],E,O,I) :-
+    OC is O+1,
+    l1(R,E,OC,I).
+l1([_|R],E1,O,I):-
+    l1(R,E1,O,I).
+l1([],E2,I,I).
 %% 6. PROPRIETE : Les elements impaires d'une liste
 %% paires coincident avec ces elements impaires
 %% pegi(+List)
