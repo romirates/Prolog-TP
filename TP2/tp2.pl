@@ -130,6 +130,9 @@ e9(P) :-
 
 %% 10. PROGRAMMEZ : Enumeration des suffixes d'une liste.
 %% suff(-Pref,+Liste)
+suff([],L).            % point de choix
+prefs([E|L],[E|L1]) :-
+  prefs(L,L1).
 
 e10(S) :-
   suff(S,[a,b,c,d]),
@@ -143,8 +146,8 @@ fct(0,1).
 fct(N,F) :-
   N1 is N-1,
   fct(N1,F1),
-  F is N*F1.
-
+  F is N*F1,!.
+%%coupure 
 e11(F) :-
   write(' > Tapez un entier, puis le point  '),
   read(I),
@@ -177,8 +180,10 @@ e13(S) :-
 
 %% 13. PROGRAMMEZ l'inversion d'une liste
 %% rvs(+Liste,-IListe)
-
-e14(R) :-
+rvs([],[]).
+rvs(E|L,X):-
+app(rvs(L),E,X).
+e14(E) :-
   L=[1,2,3,4,5,6],
   write('Liste initiale: '),
   write(L),
