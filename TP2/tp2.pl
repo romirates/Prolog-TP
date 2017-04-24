@@ -44,14 +44,23 @@ l0([_|R],I,I2,E1) :-
 %% 5. PROGRAMMEZ l'enumeration des positions d'une liste ou on
 %% trouve Y = X pour un X donne.
 %% occ(+Liste,+X,-I).
-occ(L,E,I) :-
+occ(L,E,I):-
+	locc(L,1,I,E).
+locc([E|_],I,I,E).
+locc([_|Q],I,I0,E1):-
+	I1 is I+1,
+	locc(Q,I1,I0,E1).
+
+%%calcule de l'occurence de l'élément demandé 
+occu(L,E,I) :-
     l1(L,E,0,I).
 l1([E|R],E,O,I) :-
     OC is O+1,
     l1(R,E,OC,I).
-l1([_|R],E1,O,I):-
-    l1(R,E1,O,I).
-l1([],E2,I,I).
+l1([E1|R],E,O,I):-
+	E1 \= E,
+    l1(R,E,O,I).
+l1([],_,I,I).
 %% 6. PROPRIETE : Les elements impaires d'une liste
 %% paires coincident avec ces elements impaires
 %% pegi(+List)
@@ -115,7 +124,8 @@ e8(P) :-
 
 %% 9. Les definir a travers app/3 
 %% prf(-Prefs,+Liste) 
-
+prf(P,L):-
+	app(P,_,L).
 e9(P) :-
   prf(P,[a,b,c,d]),
   write(P),
@@ -124,8 +134,13 @@ e9(P) :-
   true.
 
 %% 10. PROGRAMMEZ : Enumeration des suffixes d'une liste.
-%% suff(-Pref,+Liste)
+%% suff(-Suff,+Liste)
+suff(S,L):-
+	app(_,S,L).
 
+suffSapp(L,L).
+suffSapp(L,[_|Q]):-
+	suffSapp(L,Q).
 e10(S) :-
   suff(S,[a,b,c,d]),
   write(S),
@@ -172,7 +187,15 @@ e13(S) :-
 
 %% 13. PROGRAMMEZ l'inversion d'une liste
 %% rvs(+Liste,-IListe)
-
+rvsNaive([T|Q],X):-
+	rvsNaive(Q,R),
+	app(R,[T],X).
+rvsNaive([],[]).
+rvs(L,X):-
+	rvsA(L,[],X).
+rvsA([T|Q],Acc,X):-
+	rvsA(Q,[T|Acc],X).
+rvsA([],X,X).
 e14(R) :-
   L=[1,2,3,4,5,6],
   write('Liste initiale: '),

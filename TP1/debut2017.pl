@@ -13,7 +13,7 @@ e0(5,_) :-
   nl,        % a la ligne
   write(Y).
 e0(6,X) :- f(a,b) = f(X,X).
-e0(7,X) :- f(X) = X.               % BOUCLES !!!!!
+e0(7,X) :- f(X) = X.               % BOUCLES !!!!! pas forcément
 e0(8,X) :- [1|X] = X.
 e0(9,X) :- [1|_] = X.
 
@@ -171,14 +171,14 @@ frere_de(X,Y) :-
   	(couple(Z,V);
    	couple(V,Z)),
   	sexe(X,m),
-	X/==Y.
+	X=\=Y.
 soeur_de(X,Y) :-
 	parent_de(Z,X),
 	parent_de(V,Y),
 	(couple(Z,V);
 	couple(V,Z)),
 	sexe(X,f),
-	X/=Y.
+	X=\=Y.
 %% Programmer le predicat    soeur_de(X,Y)%%
 
 %%%%%%%%%%%%%%  Base de donnee : une famille %%%%%%%%%%%%%%%%%%%%%
