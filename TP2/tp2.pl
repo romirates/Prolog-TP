@@ -44,6 +44,7 @@ l0([_|R],I,I2,E1) :-
 %% 5. PROGRAMMEZ l'enumeration des positions d'une liste ou on
 %% trouve Y = X pour un X donne.
 %% occ(+Liste,+X,-I).
+
 occ(L,E,I):-
 	locc(L,1,I,E).
 locc([E|_],I,I,E).
@@ -61,6 +62,18 @@ l1([E1|R],E,O,I):-
 	E1 \= E,
     l1(R,E,O,I).
 l1([],_,I,I).
+	
+/*
+occ(L,E,I) :- 
+	l1(L,E,0,I).
+l1([E|R],E,O,I) :-
+    OC is O+1,
+    l1(R,E,OC,I).
+l1([_|R],E1,O,I):-
+    l1(R,E1,O,I).
+l1([],E2,I,I).
+*/
+
 %% 6. PROPRIETE : Les elements impaires d'une liste
 %% paires coincident avec ces elements impaires
 %% pegi(+List)
@@ -134,9 +147,15 @@ e9(P) :-
   true.
 
 %% 10. PROGRAMMEZ : Enumeration des suffixes d'une liste.
+
 %% suff(-Suff,+Liste)
 suff(S,L):-
 	app(_,S,L).
+
+%% suff(-Pref,+Liste)
+suff([],L).            % point de choix
+prefs([E|L],[E|L1]) :-
+  prefs(L,L1).
 
 suffSapp(L,L).
 suffSapp(L,[_|Q]):-
@@ -153,8 +172,8 @@ fct(0,1).
 fct(N,F) :-
   N1 is N-1,
   fct(N1,F1),
-  F is N*F1.
-
+  F is N*F1,!.
+%%coupure 
 e11(F) :-
   write(' > Tapez un entier, puis le point  '),
   read(I),
